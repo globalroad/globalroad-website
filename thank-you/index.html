@@ -67,6 +67,20 @@
     .sub{font-size:16px;color:var(--w70);margin-bottom:32px;font-weight:400;line-height:1.65}
     .sub strong{color:var(--w);font-weight:600}
 
+    /* BACKUP CARD — Naver Cafe immediate alternative */
+    .backup-card{background:linear-gradient(135deg,var(--neon-glow) 0%,rgba(200,240,49,.05) 100%);border:1px solid rgba(200,240,49,.35);border-radius:var(--rl);padding:20px;margin-bottom:16px;text-align:left;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden;animation:slideIn .5s ease-out .3s both}
+    .backup-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--neon)}
+    @keyframes slideIn{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .backup-icon{width:36px;height:36px;min-width:36px;background:var(--neon);color:var(--black);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900}
+    .backup-body{flex:1}
+    .backup-body h3{font-size:14px;font-weight:800;color:var(--w);margin-bottom:4px;letter-spacing:-.01em}
+    .backup-body p{font-size:13px;color:var(--w70);line-height:1.55;margin-bottom:10px}
+    .backup-body p strong{color:var(--neon);font-weight:700}
+    .backup-link{display:inline-flex;align-items:center;gap:6px;background:var(--neon);color:var(--black);font-size:13px;font-weight:800;padding:8px 14px;border-radius:30px;text-decoration:none;transition:var(--tr);letter-spacing:-.01em}
+    .backup-link:hover{background:var(--w);transform:translateY(-1px);box-shadow:0 4px 16px rgba(200,240,49,.25)}
+    .backup-link::after{content:'→';transition:transform .2s}
+    .backup-link:hover::after{transform:translateX(3px)}
+
     /* INFO BOX */
     .info{background:var(--dc);border:1px solid var(--w10);border-radius:var(--rl);padding:24px;margin-bottom:28px;text-align:left;position:relative;overflow:hidden}
     .info::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent)}
@@ -124,13 +138,25 @@
         받은편지함을 확인해주세요!
       </p>
 
+      <!-- Backup Card — instant access via Naver Cafe -->
+      <div class="backup-card">
+        <div class="backup-icon">⚡</div>
+        <div class="backup-body">
+          <h3>이메일이 안 오시나요?</h3>
+          <p>글로벌 네이버 카페(<strong>4,650명</strong>)에 가입하시면 <strong>지금 즉시</strong> 전자책을 받으실 수 있습니다.</p>
+          <a href="https://cafe.naver.com/globalroadmap" target="_blank" class="backup-link">
+            카페에서 지금 바로 받기
+          </a>
+        </div>
+      </div>
+
       <!-- Info -->
       <div class="info">
         <div class="info-row">
           <div class="info-icon">📬</div>
           <div class="info-text">
-            <h3>이메일이 안 보이나요?</h3>
-            <p><strong>스팸함 / 프로모션 탭</strong>도 확인해주세요. 만약 5분 이상 안 오면 메일 주소를 다시 확인해주세요.</p>
+            <h3>이메일을 기다리실 거라면</h3>
+            <p><strong>스팸함 / 프로모션 탭</strong>도 확인해주세요. 5분 이상 안 오면 메일 주소를 다시 확인해주세요.</p>
           </div>
         </div>
         <div class="info-row">
