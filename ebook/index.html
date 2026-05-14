@@ -6,7 +6,7 @@
   <title>무료 전자책 받기 — 글로벌 로드 | 1년 8억 매출 시스템</title>
   <meta name="description" content="1년 만에 8억 7천만 원 매출을 만든 시스템. 8단계 로드맵 + 39단계 셋업 가이드 + 380개 브랜드 사이트. 지금 무료로 받으세요.">
   <meta name="facebook-domain-verification" content="mvvegxi1h4gxoi93l1sydlxclewryd" />
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel Code (with event_id for CAPI dedup) -->
   <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -16,8 +16,15 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
+
+  // Generate a unique event_id for this page-view (used by CAPI dedup)
+  function _grEventId(prefix){
+    return prefix + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,12);
+  }
+  var _grPVId = _grEventId('pv_ebook');
+
   fbq('init', '1486474059569422');
-  fbq('track', 'PageView');
+  fbq('track', 'PageView', {}, { eventID: _grPVId });
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1486474059569422&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
@@ -122,8 +129,8 @@
     .mini-test{padding:48px 16px;text-align:center}
     .mini-test-q{font-size:clamp(18px,3.5vw,22px);font-weight:500;color:var(--w90);max-width:680px;margin:0 auto 16px;line-height:1.55;letter-spacing:-.01em}
     .mini-test-q::before,.mini-test-q::after{color:var(--neon);font-weight:900;font-size:1.2em}
-    .mini-test-q::before{content:'" '}
-    .mini-test-q::after{content:' "'}
+    .mini-test-q::before{content:'“ '}
+    .mini-test-q::after{content:' ”'}
     .mini-test-cite{font-size:12px;color:var(--w40);letter-spacing:.05em}
     .mini-test-cite strong{color:var(--w70);font-weight:600}
 
@@ -274,6 +281,13 @@
 
       btn.disabled = true;
       btn.textContent = '발송 중...';
+
+      // Generate a unique event_id for the Lead event and stash it for the thank-you page.
+      // This same id will be used when Lead fires on /thank-you/ so that Meta can dedup pixel ↔ CAPI.
+      try {
+        var leadId = _grEventId('lead');
+        sessionStorage.setItem('grLeadEventId', leadId);
+      } catch(e) { /* sessionStorage may be unavailable in some browsers — fine, dedup just won't apply */ }
 
       // POST to Stibee — using no-cors fallback so submission still works even if CORS blocks reads.
       // Stibee accepts standard form-encoded POSTs and registers the subscriber server-side.
